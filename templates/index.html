@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="{{ url_for('static', filename="js/common.js")}}"></script>
+        <script src="{{ url_for('static', filename="vender/vue.js")}}"></script>
+        <script src="{{ url_for('static', filename="js/index.js")}}"></script>
         <title>dev screen</title>
     </head>
     <body>
         <h2>Hello World!</h2>
-        <button></button>
+        <div id="app">
+
+        </div>
     </body>
-    <script src="{{ url_for('static', filename="js/common.js")}}"></script>
-    <script src="{{ url_for('static', filename="vender/vue.js")}}"></script>
-    <script src="{{ url_for('static', filename="js/index.js")}}"></script>
 </html>
