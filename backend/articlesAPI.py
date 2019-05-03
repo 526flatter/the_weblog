@@ -11,6 +11,6 @@ articles_bp = Blueprint('articles',
 def articles():
     return render_template('articles.html')
 
-@articles_bp.route('/getFirstArticles', methods=['GET'])
+@articles_bp.route('/getFirstArticles/', methods=['GET'])
 def getFirstArticles():
     return jsonify(ar.getFirstArticles())

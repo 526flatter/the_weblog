@@ -5,10 +5,12 @@
     </head>
     <body>
         <div id="app">
-
+            <p>{{ article_count }}</p>
+            <li v-for="article in articles">{{ article }}</li>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="{{ url_for('static', filename="vender/vue.js")}}"></script>
-        <script src="{{ url_for('static', filename="js/articles.js")}}"></script>
+        <script src="(( url_for('static', filename="js/common.js")))"></script>
+        <script src="(( url_for('static', filename="vender/vue.js")))"></script>
+        <script src="(( url_for('static', filename="js/articles.js")))"></script>
     </body>
 </html>
