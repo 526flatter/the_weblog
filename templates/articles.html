@@ -6,7 +6,10 @@
     <body>
         <div id="app">
             <p>{{ article_count }}</p>
-            <li v-for="article in articles">{{ article }}</li>
+            <ul>
+                <li v-for="article in articles">{{ article }}</li>
+            </ul>
+            <button id='testButton' v-on:click="getNextArticles()">test_button</button>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="(( url_for('static', filename="js/common.js")))"></script>

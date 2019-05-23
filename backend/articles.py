@@ -29,9 +29,11 @@ def getFirstArticles():
             ]
         }
 
+    print(result)
     return result
 
 def getNextArticles(param):
+    print('aaa')
     print(param)
 
     result = {
@@ -60,5 +62,7 @@ def getNextArticles(param):
                 }
             ]
         }
+    
+    print(result)
 
     return result

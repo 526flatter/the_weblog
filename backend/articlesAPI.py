@@ -15,6 +15,6 @@ def articles():
 def getFirstArticles():
     return jsonify(ar.getFirstArticles())
 
-@articles_bp.route('/getFirstArticles/', methods=['POST'])
+@articles_bp.route('/getNextArticles/', methods=['POST'])
 def getNextArticles():
     return jsonify(ar.getNextArticles(request.json))
