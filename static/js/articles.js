@@ -1,6 +1,6 @@
 var app = null;
 var axs = axios.create({
-    baseURL: 'http://localhost:4000', // バックエンドB のURL:port を指定する
+    baseURL: 'http://localhost:5000', // バックエンドB のURL:port を指定する
     headers: {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
@@ -29,10 +29,13 @@ const initapp = () => {
                 let lastid = app.articles[length-1].id
             
                 let url = CONTEXT_PATH + 'articles/getNextArticles/'
-                let param = new URLSearchParams();
-                param.append('lastid', lastid)
+                // let param = new URLSearchParams();
+                // param.append('lastid', lastid)
+                let param = {
+                    lastid: lastid
+                }
 
-                let response = await axios.post(url, param)
+                let response = await axs.post(url, param)
                 app.article_count = response.data.article_count
                 app.articles = response.data.articles
             }

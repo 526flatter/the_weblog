@@ -30,6 +30,7 @@ def getFirstArticles():
         }
 
     print(result)
+
     return result
 
 def getNextArticles(param):
