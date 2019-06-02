@@ -1,5 +1,6 @@
 import config.config as conf
-import sqlite3
+import db
+from flask import g
 
 def getFirstArticles():
     result = {
@@ -7,6 +8,7 @@ def getFirstArticles():
         'articles': []
     }
 
+    """
     if conf.DEBUG:
         result = {
             'article_count': 10,
@@ -28,6 +30,15 @@ def getFirstArticles():
                 }
             ]
         }
+    """
+    query  = "select a.article_id as id, u.user_name as user, a.title, a.update_date"
+    query += " from article a left outer join user u"
+    query += " on (a.user_id = u.user_id)"
+    query += " order by a.entry_date desc limit 10"
+
+    cur = g.db.execute(query)
+    result['articles'] = [dict(id=row[0], user=row[1], title=row[2]) for row in cur.fetchall()]
+    result['article_count'] = len(result['articles'])
 
     print(result)
 

@@ -1,5 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
+import db
 
+# Vue.jsとjinja2のエスケープが被るため
+# SFCにしたらいらなくなる
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
     jinja_options.update(dict(
@@ -15,16 +18,21 @@ app = CustomFlask(__name__,
             static_folder = './static',
             template_folder = './templates')
 
-from backend.articlesAPI import articles_bp
-app.register_blueprint(articles_bp, url_prefix='/articles')
+@app.before_request
+def before_request():
+    g.db = db.connect_db()
+
+@app.after_request
+def after_request(response):
+    g.db.close()
+    return response
 
 @app.route('/')
 def initapp():
     return render_template('index.html')
 
-@app.route('/articles')
-def articles():
-    return render_template('articles.html')
+from backend.articlesAPI import articles_bp
+app.register_blueprint(articles_bp, url_prefix='/articles')
 
 if __name__ == '__main__':
     app.run()
