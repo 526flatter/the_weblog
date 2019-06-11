@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="(( url_for('static', filename="css/articles.css")))">
         <title>記事一覧</title>
     </head>
     <body>
         <div id="app">
             <p>{{ article_count }}</p>
             <ul>
-                <li v-for="article in articles">{{ article }}</li>
+                <article-component
+                    v-for="article in articles"
+                    v-bind:article="article"
+                ></article-component>
             </ul>
             <button id='testButton' v-on:click="getNextArticles()">test_button</button>
         </div>

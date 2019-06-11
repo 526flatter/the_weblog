@@ -7,11 +7,22 @@ var axs = axios.create({
     responseType: 'json'  
 })
 
+var articleComponent =  {
+    props: ['article'],
+    template: `<div class="article">
+                <label>{{ article.title }}</label>
+                <label>{{ article.user }}</label>
+                </div>`
+}
+
 var app = new Vue({
     el: '#app',
     data : {
         articles : [],
         article_count : 0
+    },
+    components: {
+        'article-component': articleComponent
     },
     mounted : async function(){
         let url = CONTEXT_PATH + 'articles/getFirstArticles/'
@@ -27,8 +38,6 @@ var app = new Vue({
             let lastid = app.articles[length-1].id
         
             let url = CONTEXT_PATH + 'articles/getNextArticles/'
-            // let param = new URLSearchParams();
-            // param.append('lastid', lastid)
             let param = {
                 lastid: lastid
             }
