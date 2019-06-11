@@ -15,7 +15,10 @@ def getFirstArticles():
 
     cur = db.connect_db().execute(query)
     result['articles'] = [dict(id=row[0], user=row[1], title=row[2]) for row in cur.fetchall()]
-    result['article_count'] = len(result['articles'])
+
+    query = "select count(article_id) from article"
+    cur = db.connect_db().execute(query)
+    result['article_count'] = cur.fetchone()[0]
 
     print(result)
 
@@ -35,13 +38,13 @@ def getNextArticles(param):
     query  = "select a.article_id as id, u.user_name as user, a.title, a.update_date"
     query += " from article a left outer join user u"
     query += " on (a.user_id = u.user_id)"
-    query += f" where a.article_id {id_conf} {param['id']}"
+    query += f" where a.article_id {id_conf} ?"
     query += " order by a.entry_date desc limit 10"
 
-    cur = db.connect_db().execute(query)
+    cur = db.connect_db().execute(query, param['id'])
     result['articles'] = [dict(id=row[0], user=row[1], title=row[2]) for row in cur.fetchall()]
     result['article_count'] = len(result['articles'])
-    
+
     print(result)
 
     return result
