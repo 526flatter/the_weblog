@@ -17,6 +17,7 @@ class CustomFlask(Flask):
 app = CustomFlask(__name__,
             static_folder = './static',
             template_folder = './templates')
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 10
 
 @app.before_request
 def before_request():
@@ -25,6 +26,9 @@ def before_request():
 @app.after_request
 def after_request(response):
     g.db.close()
+    # キャッシュ無効化
+    if 'Cache-Control' not in response.headers:
+        response.headers['Cache-Control'] = 'no-store'
     return response
 
 @app.route('/')
