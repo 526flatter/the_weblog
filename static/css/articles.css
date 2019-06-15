@@ -1,9 +1,14 @@
 @charset "UTF-8";
+
 .article {
     border: 1px;
     border-color: black;
     background-color: aliceblue;
-    display: flex;
-    margin: 1px;
+    width: 150px;
+    margin: 2px;
 }
 
+#contentlist {
+    width: 100%;
+    justify-content: center;
+}

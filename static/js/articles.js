@@ -1,4 +1,4 @@
-var axs = axios.create({
+let axs = axios.create({
     baseURL: 'http://localhost:5000', // バックエンドB のURL:port を指定する
     headers: {
       'Content-Type': 'application/json',
@@ -7,15 +7,26 @@ var axs = axios.create({
     responseType: 'json'  
 })
 
-var articleComponent =  {
+let articleComponent =  {
     props: ['article'],
     template: `<div class="article">
                 <label>{{ article.title }}</label>
-                <label>{{ article.user }}</label>
+                <div class='contentinfo'>
+                    <label>{{ article.user }}</label>
+                </div>
                 </div>`
 }
 
-var app = new Vue({
+async function getArticles(page = 1) {
+    let url = CONTEXT_PATH + 'articles/getFirstArticles?page=' + page.toString()
+    console.log(url)
+    let response = await axios.get(url)
+    console.log(response)
+    app.article_count = response.data.article_count
+    app.articles = response.data.articles
+}
+
+let app = new Vue({
     el: '#app',
     data : {
         articles : [],
