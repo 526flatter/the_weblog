@@ -11,10 +11,10 @@ def getFirstArticles():
     query  = "select a.article_id as id, u.user_name as user, a.title, a.update_date"
     query += " from article a left outer join user u"
     query += " on (a.user_id = u.user_id)"
-    query += " order by a.entry_date desc limit 10"
+    query += " order by a.entry_date desc limit " + str(conf.ARTICLES_PER_PAGE)
 
     cur = db.connect_db().execute(query)
-    result['articles'] = [dict(id=row[0], user=row[1], title=row[2]) for row in cur.fetchall()]
+    result['articles'] = [dict(id=row[0], user=row[1], title=row[2], update_date=row[3]) for row in cur.fetchall()]
 
     query = "select count(article_id) from article"
     cur = db.connect_db().execute(query)
