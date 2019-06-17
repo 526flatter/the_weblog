@@ -1,4 +1,4 @@
-let axs = axios.create({
+const axs = axios.create({
     baseURL: 'http://localhost:5000', // バックエンドB のURL:port を指定する
     headers: {
       'Content-Type': 'application/json',
@@ -7,7 +7,7 @@ let axs = axios.create({
     responseType: 'json'  
 })
 
-let articleComponent =  {
+const articleComponent =  {
     props: ['article'],
     template: `<div class="article">
                 <label>{{ article.title }}</label>
@@ -18,44 +18,34 @@ let articleComponent =  {
 }
 
 async function getArticles(page = 1) {
-    let url = CONTEXT_PATH + 'articles/getFirstArticles?page=' + page.toString()
+    let url = CONTEXT_PATH + 'articles/getArticles'
     console.log(url)
-    let response = await axios.get(url)
-    console.log(response)
-    app.article_count = response.data.article_count
-    app.articles = response.data.articles
+    return axios.get(url, {params: {page: page.toString()}})
 }
 
-let app = new Vue({
+const app = new Vue({
     el: '#app',
     data : {
         articles : [],
-        article_count : 0
+        page : 1,
+        maxpage: 0
     },
     components: {
         'article-component': articleComponent
     },
     mounted : async function(){
-        let url = CONTEXT_PATH + 'articles/getFirstArticles/'
-        console.log(url)
-        let response = await axios.get(url)
+        const response = await getArticles()
         console.log(response)
-        app.article_count = response.data.article_count
         app.articles = response.data.articles
+        app.maxpage = response.data.maxpage
     },
     methods : {
-        getNextArticles: async function(){
-            let length = app.articles.length
-            let lastid = app.articles[length-1].id
-        
-            let url = CONTEXT_PATH + 'articles/getNextArticles/'
-            let param = {
-                lastid: lastid
-            }
-
-            let response = await axs.post(url, param)
-            app.article_count = response.data.article_count
+        getArticles: async function(next){
+            const response = await getArticles(next)
+            console.log(response)
             app.articles = response.data.articles
+            app.maxpage = response.data.maxpage
+            app.page = next
         }
     }
 });
