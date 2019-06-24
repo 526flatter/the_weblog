@@ -14,30 +14,36 @@
                     ></article-component>
                 </ul>
             </div>
-            <div>
-                <button v-if="page > 2"
-                        v-on:click="getArticles(page - 2)"
-                        class="pageButton">
-                        {{ page - 2 }}
-                </button>
-                <button v-if="page > 1"
-                        v-on:click="getArticles(page - 1)"
-                        class="pageButton">
-                    {{ page - 1 }}
-                </button>
-                <label id="thispage">
-                    {{ page }}
-                </label>
-                <button v-if="(maxpage-page) > 0"
-                        v-on:click="getArticles(page + 1)"
-                        class="pageButton">
-                    {{ page + 1 }}
-                </button>
-                <button v-if="(maxpage-page) > 1"
-                        v-on:click="getArticles(page + 2)"
-                        class="pageButton">
-                    {{ page + 2 }}
-                </button>
+            <div id="pageSelect">
+                <div class="pageButtonBox">
+                    <button v-if="page > 2"
+                            v-on:click="getArticles(page - 2)">
+                            {{ page - 2 }}
+                    </button>
+                </div>
+                <div class="pageButtonBox">
+                    <button v-if="page > 1"
+                            v-on:click="getArticles(page - 1)">
+                        {{ page - 1 }}
+                    </button>
+                </div>
+                <div class="pageButtonBox">
+                    <label id="thispage">
+                        {{ page }}
+                    </label>
+                </div>
+                <div class="pageButtonBox">
+                    <button v-if="(maxpage-page) > 0"
+                            v-on:click="getArticles(page + 1)">
+                        {{ page + 1 }}
+                    </button>
+                </div>
+                <div class="pageButtonBox">
+                    <button v-if="(maxpage-page) > 1"
+                            v-on:click="getArticles(page + 2)">
+                        {{ page + 2 }}
+                    </button>
+                </div>
             </div>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

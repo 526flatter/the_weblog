@@ -7,8 +7,17 @@
     width: 150px;
     margin: 2px;
 }
-
 #contentlist {
     width: 100%;
     justify-content: center;
+}
+#pageSelect {
+    display: flex;
+    flex-direction: row;
+}
+.pageButtonBox {
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    text-align:center;
 }
