@@ -10,6 +10,7 @@ def getArticles(page):
     query += " on (a.user_id = u.user_id)"
     query += " order by a.entry_date desc limit " + str(conf.ARTICLES_PER_PAGE)
     query += " offset " + str((page - 1) * conf.ARTICLES_PER_PAGE)
+    print(query)
 
     cur = db.connect_db().execute(query)
     result['articles'] = [dict(id=row[0], user=row[1], title=row[2], update_date=row[3]) for row in cur.fetchall()]
