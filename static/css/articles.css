@@ -1,11 +1,16 @@
 @charset "UTF-8";
 
+html{
+    color: gray;
+}
 .article {
-    border: 1px;
-    border-color: black;
-    background-color: aliceblue;
+    border: solid 1px;
+    border-color: gray;
+    /* background-color: aliceblue; */
     width: 150px;
-    margin: 2px;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 10px;
 }
 #contentlist {
     width: 100%;
